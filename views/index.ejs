@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <%- include('./partials/head.ejs'); %>
+  
+<body>
+
+
+  <%- include('./partials/nav.ejs'); %>
+
+
+      <div class="container">
+        <% if(blogs.length === 0){%>
+
+          <h3>No blogs yet.   Create One!!!</h3>
+
+          <% } else{ %>
+
+            <div class="row">
+
+              <% blogs.forEach(blog =>{%>
+    
+              
+                <div class="col-md-6 mb-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title"><%=blog.heading %></h5>
+                      <p class="card-text"><%=blog.body %></p>
+                      <a href="/Blog/<%= blog._id %>" class="">read more</a>
+                    </div>
+                  </div>
+                </div>
+
+             <% }) %>
+    
+               
+              </div>
+
+
+          <% } %>
+       
+    
+    
+          
+        
+    </div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+</body>
+</html>

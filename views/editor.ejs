@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head.ejs'); %>
+  
+<body>
+  <%- include('./partials/nav.ejs'); %>
+
+<div class="container">
+  <button onclick="window.location.href='/Create'" class = "btn btn-primary text-capitalize mx-auto d-block mb-5">create new post</button>
+
+  <% if(blogs.length === 0){%>
+
+    <h3>No blogs yet.   Create One!!!</h3>
+
+    <% } else{ %>
+    <div class="row">
+
+      <% blogs.forEach(blog =>{%>
+
+      <div class="col-md-6 mb-3">
+         <div class="card">
+             <div class="card-header">
+              <%= blog.heading %>
+             </div>
+             <div class="card-body">
+               <h5 class="card-title">Writer : <%= blog.author %></h5>
+               <p class="card-text"> <%= blog.body %></p>
+             </div>
+            <div class="card-footer d-flex justify-content-end">
+              <a href="" class="mr-4 text-danger"><i id="<%=blog._id%>" onclick="deleteBtn(event)" class="far fa-trash-alt"></i></a>
+              <!-- event: info when btn clicked -->
+            
+              <a href="/edit/<%=blog._id%>" class="mr-0 text-warning"><i  class="far fa-edit"></i></a>
+            
+            </div>
+           </div>
+      </div>
+     <% }) %>
+    </div>
+        
+    <% } %>
+
+</div>
+<script>
+  const deleteBtn = (event) => {
+
+    event.preventDefault();
+    console.log(event.target.id);
+    const id = event.target.id;
+    const endpoint = `/blog/${id}`
+
+
+
+    fetch(endpoint,{
+      method:'DELETE'
+    })
+    .then(response => response.json())
+    .then(data => window.location.href='/Editor')
+    .catch(err => console.log(err));
+
+  }
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+</body>
+</html>
